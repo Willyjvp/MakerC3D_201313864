@@ -28,6 +28,8 @@ terminal TokenC3D IGUAL_IGUAL, MENOR, MAYOR, MENORI, MAYORI, DIFi;
 terminal TokenC3D NOT, AND, OR;
 nonterminal NodoC3D inicial, expresion;
 
+precedence left AND, OR;
+precedence right NOT;
 precedence left IGUAL_IGUAL, MENOR, MAYOR, MENORI, MAYORI, DIFi;
 precedence left MAS, MENOS;
 precedence left MULT, DIV; 
@@ -41,7 +43,7 @@ inicial     ::= {: ControlC3D.reiniciar(); :} expresion:exp
                         ControlC3D.agregarC3D("//Último valor: " + exp.getCad());
                     :};
 
-expresion   ::= expresion:izq MAS expresion:der
+                    expresion   ::= expresion:izq MAS expresion:der
                     {: 
                         String temp = ControlC3D.generaTemp();
                         String c3d = temp + " = " + izq.getCad() + " + " + der.getCad() + ";\n";
@@ -119,6 +121,28 @@ expresion   ::= expresion:izq MAS expresion:der
                         ControlC3D.agregarC3D(c3d);
                         RESULT = new NodoC3D(temp); 
                     :}
+            |   expresion:izq OR expresion:der
+                    {: 
+                        String temp = ControlC3D.generaTemp();
+                        String c3d = temp + " = " + izq.getCad() + " || " + der.getCad() + ";\n";
+                        ControlC3D.agregarC3D(c3d);
+                        RESULT = new NodoC3D(temp); 
+                    :}
+            |   expresion:izq AND expresion:der
+                    {: 
+                        String temp = ControlC3D.generaTemp();
+                        String c3d = temp + " = " + izq.getCad() + " && " + der.getCad() + ";\n";
+                        ControlC3D.agregarC3D(c3d);
+                        RESULT = new NodoC3D(temp); 
+                    :}
+            |  NOT  expresion:izq   
+                    {: 
+                        String temp = ControlC3D.generaTemp();
+                        String c3d = temp + " = !" + izq.getCad()   + ";\n";
+                        ControlC3D.agregarC3D(c3d);
+                        RESULT = new NodoC3D(temp); 
+                    :}
+            
             |   MENOS expresion:exp 
                     {: 
                         String temp = ControlC3D.generaTemp();
