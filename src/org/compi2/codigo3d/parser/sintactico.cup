@@ -138,7 +138,7 @@ inicial     ::= {: ControlC3D.reiniciar(); :} expresion:exp
             |  NOT  expresion:izq   
                     {: 
                         String temp = ControlC3D.generaTemp();
-                        String c3d = temp + " = !" + izq.getCad()   + ";\n";
+                        String c3d = temp + " = "+" ! " + izq.getCad()   + ";\n";
                         ControlC3D.agregarC3D(c3d);
                         RESULT = new NodoC3D(temp); 
                     :}
