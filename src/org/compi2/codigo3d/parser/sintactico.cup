@@ -68,8 +68,14 @@ COND ::=    COND:izq OR COND:der
             | REL ;
 
             
-REL::=      REL OPERADOR REL
-            | expresion:exp {: RESULT = exp; :} ;
+REL::=      REL:relI OPERADOR:opR REL:relD {:
+                        String etVerdadero =  ControlC3D.generaEti();
+                        String etFalso =  ControlC3D.generaEti();
+                        ControlC3D.agregarC3D("if "+relI.getCad() +" "+opR.getCad()+" "+relD.getCad() +" go to "+etVerdadero+";\n"+
+                                              "go to "+etFalso+";\n");
+                        RESULT =  new NodoC3D(etFalso, etVerdadero);
+                             :}
+            | expresion:exp  {: RESULT = exp; :} ;
 
 
 OPERADOR::=   MAYOR  {: RESULT = new NodoC3D(">"); :}
