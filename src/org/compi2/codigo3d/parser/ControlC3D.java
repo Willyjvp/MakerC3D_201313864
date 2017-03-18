@@ -24,7 +24,7 @@ public class ControlC3D {
      * @return El siguiente temporal (t$#)
      */
     public static String generaTemp(){
-        return "t$"+temp++;
+        return "t"+temp++;
     }
     
     
@@ -33,7 +33,7 @@ public class ControlC3D {
      * @return El siguiente etiqueta (l$#)
      */
     public static String generaEti(){
-        return "l$"+etiqueta++;
+        return "l"+etiqueta++;
     }
     
     /**
